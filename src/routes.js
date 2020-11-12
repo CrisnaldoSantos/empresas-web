@@ -1,8 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Login from './views/Login/index';
 
 function routes() {
-  return <div />;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" component={Login} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default routes;
