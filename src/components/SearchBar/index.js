@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AppBar,
   Toolbar,
@@ -8,6 +10,7 @@ import {
   Input,
 } from '@material-ui/core';
 import { Search, Close } from '@material-ui/icons';
+import { setSearch, resetSearch } from '../../store/ducks/searchbar/index';
 import LogoNav from '../../assets/logo-nav.png';
 
 const useStyles = makeStyles({
@@ -33,7 +36,21 @@ const useStyles = makeStyles({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
   const [searchPreesed, setSearchPreesed] = useState(false);
+  const search = useSelector((state) => state.searchbar.searchTerm);
+
+  function debounceUpdateAndSearch(e, value) {
+    dispatch(setSearch({ searchTerm: value }));
+    console.log(search);
+  }
+
+  function handleCloseSearch(e) {
+    e.preventDefault();
+    setSearchPreesed(false);
+    dispatch(resetSearch());
+  }
 
   return (
     <div>
@@ -41,9 +58,11 @@ export default function PrimarySearchAppBar() {
         <AppBar position="fixed" className={classes.bar}>
           <Toolbar>
             <Input
+              onChange={(e) => debounceUpdateAndSearch(e, e.target.value)}
               className={classes.inputSearch}
               placeholder="Pesquisar"
               color="neutral"
+              value={search}
               startAdornment={
                 <InputAdornment position="start">
                   <Search color="inherit" fontSize="large" />
@@ -54,7 +73,7 @@ export default function PrimarySearchAppBar() {
                   <IconButton
                     aria-label="toggle password visibility"
                     color="inherit"
-                    onClick={() => setSearchPreesed(false)}
+                    onClick={(e) => handleCloseSearch(e)}
                     edge="end"
                   >
                     <Close />
