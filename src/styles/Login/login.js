@@ -44,3 +44,18 @@ export const Subtitle = styled.p`
     max-width: 70vw;
   }
 `;
+
+export const ErrorMsg = styled.p`
+  max-width: 300px;
+  flex-wrap: wrap;
+  font-family: Roboto;
+  font-size: 1.1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.17px;
+  text-align: center;
+  color: #ff0f44;
+  margin-top: 8px;
+`;
