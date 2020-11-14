@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createAction, createReducer } from '@reduxjs/toolkit';
 
 const INITIAL_STATE = {

@@ -6,7 +6,9 @@ const INITIAL_STATE = {
 };
 
 export const getEnterprises = createAction('GET_ENTERPRISES');
+export const resetEnterprises = createAction('RESET_ENTERPRISES');
 
 export default createReducer(INITIAL_STATE, {
   [getEnterprises.type]: (state, action) => action.payload,
+  [resetEnterprises.type]: (state, action) => ({ enterprises: [] }),
 });

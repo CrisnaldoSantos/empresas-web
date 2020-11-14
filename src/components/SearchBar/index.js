@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { debounce } from 'loadsh';
 import {
   AppBar,
   Toolbar,
@@ -10,6 +11,8 @@ import {
   Input,
 } from '@material-ui/core';
 import { Search, Close } from '@material-ui/icons';
+import { searchEnterprises } from '../../store/fetchActions/index';
+import { resetEnterprises } from '../../store/ducks/enterprises';
 import { setSearch, resetSearch } from '../../store/ducks/searchbar/index';
 import LogoNav from '../../assets/logo-nav.png';
 
@@ -37,19 +40,31 @@ const useStyles = makeStyles({
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  const [currentTerm, setCurrentTerm] = useState('');
   const [searchPreesed, setSearchPreesed] = useState(false);
-  const search = useSelector((state) => state.searchbar.searchTerm);
 
-  function debounceUpdateAndSearch(e, value) {
-    dispatch(setSearch({ searchTerm: value }));
-    console.log(search);
-  }
+  const deleyedQuery = useRef(
+    debounce((e) => {
+      dispatch(setSearch({ searchTerm: e }));
+      if (e === '') {
+        dispatch(resetEnterprises());
+      } else {
+        dispatch(searchEnterprises(e));
+      }
+    }, 1200)
+  ).current;
 
   function handleCloseSearch(e) {
     e.preventDefault();
     setSearchPreesed(false);
+    setCurrentTerm('');
     dispatch(resetSearch());
+    dispatch(resetEnterprises());
+  }
+
+  function handleChange(e) {
+    setCurrentTerm(e.target.value);
+    deleyedQuery(e.target.value);
   }
 
   return (
@@ -58,11 +73,10 @@ export default function PrimarySearchAppBar() {
         <AppBar position="fixed" className={classes.bar}>
           <Toolbar>
             <Input
-              onChange={(e) => debounceUpdateAndSearch(e, e.target.value)}
+              onChange={handleChange}
               className={classes.inputSearch}
               placeholder="Pesquisar"
-              color="neutral"
-              value={search}
+              value={currentTerm}
               startAdornment={
                 <InputAdornment position="start">
                   <Search color="inherit" fontSize="large" />
