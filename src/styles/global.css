@@ -1,0 +1,37 @@
+:root {
+    --color-background: #ebe9d7;
+    font-size: 70%;
+  }
+  
+  * {
+      margin:0;
+      padding:0;
+      box-sizing: border-box;
+  }
+  
+  html, body, #root {
+      height: 100vh;
+  }
+
+  #root {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+  
+  body {
+      background: var(--color-background);
+  }
+  
+  input,
+  body,
+  button,
+  textarea {
+      font: 500 1.6rem Roboto;
+  }
+
+@media (min-width: 400px){
+    :root {
+        font-size: 82.5%;
+    }
+}
