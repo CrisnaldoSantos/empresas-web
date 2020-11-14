@@ -13,13 +13,15 @@ function Search() {
     <>
       <SearchBar />
       {search === '' && <p>Clique na busca para iniciar.</p>}
-      {enterprises.length === 0 && search !== '' && (
-        <NotFoundMsg>
-          Nenhuma empresa foi encontrada para a busca realizada.
-        </NotFoundMsg>
-      )}
+      {enterprises !== undefined &&
+        enterprises.length === 0 &&
+        search !== '' && (
+          <NotFoundMsg>
+            Nenhuma empresa foi encontrada para a busca realizada.
+          </NotFoundMsg>
+        )}
 
-      {enterprises.length !== 0 && (
+      {enterprises !== undefined && enterprises.length !== 0 && (
         <CardsContainer>
           {enterprises.map((enterprise) => {
             return (

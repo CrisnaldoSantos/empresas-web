@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { debounce } from 'loadsh';
 import {
   AppBar,
@@ -42,6 +42,15 @@ export default function PrimarySearchAppBar() {
   const dispatch = useDispatch();
   const [currentTerm, setCurrentTerm] = useState('');
   const [searchPreesed, setSearchPreesed] = useState(false);
+  const searchTerm = useSelector((state) => state.searchbar.searchTerm);
+
+  useEffect(() => {
+    if (searchTerm === '') {
+      dispatch(resetEnterprises());
+    } else {
+      dispatch(searchEnterprises(searchTerm));
+    }
+  }, []);
 
   const deleyedQuery = useRef(
     debounce((e) => {

@@ -5,6 +5,7 @@ import api from '../../services/api';
 import { loginError, loginSuccess, logout } from '../ducks/auth';
 import { load, stop } from '../ducks/loading';
 import { getEnterprises } from '../ducks/enterprises';
+import { getEnterprise } from '../ducks/detailsEnterprise';
 import catcherror from '../../util/catchError';
 
 export const authLogin = (user) => {
@@ -50,6 +51,25 @@ export const searchEnterprises = (name) => {
       )
       .then((res) => {
         dispatch(getEnterprises(res.data));
+        dispatch(stop());
+      })
+      .catch((err) => {
+        dispatch(stop());
+        catcherror(err);
+      });
+  };
+};
+
+export const showEnterprise = (id) => {
+  return (dispatch) => {
+    dispatch(load());
+    dispatch(logout());
+    api
+      .get(
+        `https://empresas.ioasys.com.br/api/v1/enterprises/${id}`,header
+      )
+      .then((res) => {
+        dispatch(getEnterprise(res.data));
         dispatch(stop());
       })
       .catch((err) => {

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 
@@ -38,11 +39,16 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleCard({ img, title, type, city, country }) {
+export default function SimpleCard({ id, img, title, type, city, country }) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
-    <Card className={classes.root}>
+    <Card
+      style={{ cursor: 'pointer' }}
+      className={classes.root}
+      onClick={() => history.push(`/enterprise/${id}`)}
+    >
       <CardContent className={classes.container}>
         <img src={img} alt={title} className={classes.image} />
         <div className={classes.detailsContainer}>
