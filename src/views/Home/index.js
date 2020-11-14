@@ -22,7 +22,7 @@ function Search() {
         )}
 
       {enterprises !== undefined && enterprises.length !== 0 && (
-        <CardsContainer>
+        <CardsContainer style={{ padding: '0px 0px' }}>
           {enterprises.map((enterprise) => {
             return (
               <SearchCard

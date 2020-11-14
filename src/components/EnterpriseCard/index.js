@@ -3,14 +3,17 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '80vw',
     height: '70vh',
   },
   image: {
-    width: '35vw',
+    width: '30vw',
     marginTop: '20px',
+    [theme.breakpoints.down('md')]: {
+      width: '50vw',
+    },
   },
   container: {
     display: 'flex',
@@ -31,7 +34,7 @@ const useStyles = makeStyles({
     fontSize: '1.6rem',
     wordWrap: 'break-word',
   },
-});
+}));
 
 export default function EnterpriseCard({ img, description, title }) {
   const classes = useStyles();
