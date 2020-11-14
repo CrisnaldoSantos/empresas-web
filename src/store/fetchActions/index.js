@@ -47,7 +47,7 @@ export const searchEnterprises = (name) => {
     dispatch(logout());
     api
       .get(
-        `https://empresas.ioasys.com.br/api/v1/enterprises?enterprise_types=3&name=${name}`,header
+        `https://empresas.ioasys.com.br/api/v1/enterprises?enterprise_types=1&name=${name}`,header
       )
       .then((res) => {
         dispatch(getEnterprises(res.data));

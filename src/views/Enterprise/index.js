@@ -25,7 +25,7 @@ function Enterprise() {
         <>
           <EnterpriseBar name={enterprise.enterprise_name} />
           <EnterpriseCard
-            img={`https://empresas.ioasys.com.br${enterprise.photo}`}
+            img={`${process.env.REACT_APP_BASE_URL}${enterprise.photo}`}
             description={enterprise.description}
             title={enterprise.enterprise_name}
           />

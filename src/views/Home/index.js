@@ -28,7 +28,7 @@ function Search() {
               <SearchCard
                 key={enterprise.id}
                 id={enterprise.id}
-                img={`https://empresas.ioasys.com.br${enterprise.photo}`}
+                img={`${process.env.REACT_APP_BASE_URL}${enterprise.photo}`}
                 title={enterprise.enterprise_name}
                 type={enterprise.enterprise_type.enterprise_type_name}
                 city={enterprise.city}

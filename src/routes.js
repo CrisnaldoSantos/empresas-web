@@ -8,7 +8,11 @@ function routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Route
+          path="/"
+          component={localStorage.getItem('empresas-token') ? Home : Login}
+          exact
+        />
         <Route path="/enterprise/:id" component={Enterprise} />
         <Route path="/login" component={Login} />
       </Switch>
